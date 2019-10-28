@@ -9,38 +9,61 @@ int main()
 {
 
 // Here the window is created with the title "flappy sam"
- sf::RenderWindow window( sf::VideoMode(432, 700 ), "Flappy Sam" );
+ sf::RenderWindow window( sf::VideoMode(400, 650 ), "Flappy Sam" );
 
 // Here the background is defined
-sf::RectangleShape background(sf::Vector2f(432, 700));
+sf::RectangleShape background(sf::Vector2f(400, 650));
 background.setFillColor(sf::Color(97, 166, 255));
 
 
- // LAV OM TIL SPRITE!!!!!!!
-
- // Here the TEST OBSTACLES ARE DEFINED
- sf::RectangleShape pipe(sf::Vector2f(50, 200));
- pipe.setFillColor(sf::Color(0, 255, 0));
- pipe.setPosition(sf::Vector2f(300, 500));
-
-
-
 // Here the textures are defined
- sf::Texture texture_sam;
 
+//Ground
+ sf::Texture texture_ground;
+ if (!texture_ground.loadFromFile("ground.png"))
+ {
+     std::cout << "Error loading ground.png\n";
+ }
+
+//Sam
+ sf::Texture texture_sam;
  if (!texture_sam.loadFromFile("8bit-sam.png"))
  {
 
      std::cout << "Error loading 8bit-sam.png :(\n";
  }
 
+//Pipe
+ sf::Texture texture_pipe;
+ if (!texture_pipe.loadFromFile("pipe.png"))
+ {
+     std::cout << "Error loading pipe.png :(\n";
+ }
+
+//OBJECTS
+
+//Here the object ground is created
+ sf::Sprite sprite_ground;
+ sprite_ground.setTexture(texture_ground);
+
+     //Here it is placed
+     sprite_ground.setPosition(sf::Vector2f(0, 610));
 
 // Here the object Sam is created
  sf::Sprite sprite_sam;
  sprite_sam.setTexture(texture_sam);
 
- // Here he is placed in the middle
- sprite_sam.setPosition(sf::Vector2f(75, 220));
+     // Here he is placed in the middle
+     sprite_sam.setPosition(sf::Vector2f(75, 220));
+
+ //Here the object pipe is created
+ sf::Sprite sprite_pipe;
+ sprite_pipe.setTexture(texture_pipe);
+
+     //Here it is placed in the map
+     sprite_pipe.setPosition(sf::Vector2f(300, 500));
+
+
 
  // !!POSITION TEST!!
  std::cout << "x-position: " << sprite_sam.getPosition().x << std::endl;
@@ -50,7 +73,7 @@ background.setFillColor(sf::Color(97, 166, 255));
  {
 
      sf::Event event;
-     pipe.move(sf::Vector2f(-0.01, 0));
+     sprite_pipe.move(sf::Vector2f(-0.1, 0));
 
      while ( window.pollEvent( event ) )
      {
@@ -75,7 +98,7 @@ background.setFillColor(sf::Color(97, 166, 255));
 
 
 {
-    std::cout << "Collision!\n";
+
 }
 
 
@@ -83,10 +106,10 @@ background.setFillColor(sf::Color(97, 166, 255));
     // Here his movement loop is configured
  if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Space))
        {
-           sprite_sam.move(sf::Vector2f(0, -0.1));
+           sprite_sam.move(sf::Vector2f(0, -1));
 
        } else {
-       sprite_sam.move(sf::Vector2f(0, 0.1));
+       sprite_sam.move(sf::Vector2f(0, 1));
        }
 
 
@@ -98,7 +121,9 @@ background.setFillColor(sf::Color(97, 166, 255));
 
      window.draw(sprite_sam);
 
-     window.draw(pipe);
+     window.draw(sprite_pipe);
+
+     window.draw(sprite_ground);
 
      window.display();
  }

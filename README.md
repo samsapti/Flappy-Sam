@@ -1,3 +1,4 @@
 # Flappy-Sam
-Project Flappy Sam
-BEEP
+Project Flappy Sam.
+
+BEEP!!

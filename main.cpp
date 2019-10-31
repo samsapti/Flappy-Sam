@@ -5,6 +5,7 @@
 
 int p=1;
 
+
 int main()
 {
 
@@ -20,14 +21,14 @@ background.setFillColor(sf::Color(97, 166, 255));
 
 //Ground
  sf::Texture texture_ground;
- if (!texture_ground.loadFromFile("ground.png"))
+ if (!texture_ground.loadFromFile("img\\ground.png"))
  {
      std::cout << "Error loading ground.png\n";
  }
 
 //Sam
  sf::Texture texture_sam;
- if (!texture_sam.loadFromFile("8bit-sam.png"))
+ if (!texture_sam.loadFromFile("img\\8bit-sam.png"))
  {
 
      std::cout << "Error loading 8bit-sam.png :(\n";
@@ -35,7 +36,7 @@ background.setFillColor(sf::Color(97, 166, 255));
 
 //Pipe
  sf::Texture texture_pipe;
- if (!texture_pipe.loadFromFile("pipe.png"))
+ if (!texture_pipe.loadFromFile("img\\pipe.png"))
  {
      std::cout << "Error loading pipe.png :(\n";
  }
@@ -106,11 +107,29 @@ background.setFillColor(sf::Color(97, 166, 255));
     // Here his movement loop is configured
  if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Space))
        {
-           sprite_sam.move(sf::Vector2f(0, -1));
+           sprite_sam.move(sf::Vector2f(0, -3));
 
        } else {
        sprite_sam.move(sf::Vector2f(0, 1));
        }
+
+
+       //Here are the collision functions
+if (sprite_sam.getGlobalBounds().intersects(sprite_ground.getGlobalBounds()))
+     {
+
+         std::cout << "Collision with ground!\n";
+         break;
+
+     }
+    else if (sprite_sam.getGlobalBounds().intersects(sprite_pipe.getGlobalBounds()))
+     {
+
+         std::cout << "Collision with pipe!\n";
+         break;
+
+    }
+
 
 
 
@@ -128,4 +147,7 @@ background.setFillColor(sf::Color(97, 166, 255));
      window.display();
  }
 
+
+ system("pause");
+    return 0;
 }

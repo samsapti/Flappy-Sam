@@ -6,6 +6,8 @@
 int p=1;
 
 
+
+float v = 0;
 int main()
 {
 
@@ -104,13 +106,19 @@ background.setFillColor(sf::Color(97, 166, 255));
 
 
 
+
     // Here his movement loop is configured
  if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Space))
        {
-           sprite_sam.move(sf::Vector2f(0, -3));
+           v = -1.5;
 
        } else {
-       sprite_sam.move(sf::Vector2f(0, 1));
+           v = v + 0.01;
+           if (v > 2.5)
+           {
+               v = 2.5;
+           }
+       sprite_sam.move(sf::Vector2f(0, v));
        }
 
 

@@ -114,9 +114,9 @@ background.setFillColor(sf::Color(97, 166, 255));
 
        } else {
            v = v + 0.01;
-           if (v > 2.5)
+           if (v > 2.0)
            {
-               v = 2.5;
+               v = 2.0;
            }
        sprite_sam.move(sf::Vector2f(0, v));
        }

@@ -39,6 +39,9 @@
 			<Add library="sfml-system" />
 			<Add directory="C:/SFML-2.5.1/lib" />
 		</Linker>
+		<Unit filename="icon.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

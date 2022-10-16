@@ -47,8 +47,8 @@ int main()
     // Configure textures
     if (!texture_ground.loadFromFile("img/ground.png"))
         cout << "Error loading ground.png" << endl;
-    if (!texture_sam.loadFromFile("img/8bit-sam.png"))
-        cout << "Error loading 8bit-sam.png :(" << endl;
+    if (!texture_sam.loadFromFile("img/8bit_sam.png"))
+        cout << "Error loading 8bit_sam.png :(" << endl;
     if (!texture_pipe_small_down.loadFromFile("img/small_pipe_down.png"))
         cout << "Error loading small_pipe_down.png :(" << endl;
     if (!texture_pipe_big_down.loadFromFile("img/big_pipe_down.png"))

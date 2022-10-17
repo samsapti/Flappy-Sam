@@ -1,4 +1,4 @@
-CPPFLAGS=-Wall -O2 -s -lstdc++ -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
+CPPFLAGS=-Wall -O2 -s -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
 
 all: main
 

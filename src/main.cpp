@@ -3,10 +3,7 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-using namespace sf;
-
-bool intersects(Sprite *a, Sprite *b)
+bool intersects(sf::Sprite *a, sf::Sprite *b)
 {
     return a->getGlobalBounds().intersects(b->getGlobalBounds());
 }
@@ -19,44 +16,42 @@ int main()
     int points;
     float v;
 
-    Texture texture_ground;
-    Texture texture_sam;
-    Texture texture_pipe_small_down;
-    Texture texture_pipe_big_down;
-    Texture texture_pipe_small_up;
-    Texture texture_pipe_big_up;
-    
-    Sprite sprite_ground;
-    Sprite sprite_sam;
-    Sprite sprite_pipe_small_down;
-    Sprite sprite_pipe_big_down;
-    Sprite sprite_pipe_small_up;
-    Sprite sprite_pipe_big_up;
-
-    SoundBuffer beep_buffer;
-    SoundBuffer jump_buffer;
-    Sound beep_sound;
-    Sound jump_sound;
+    sf::Texture texture_ground;
+    sf::Texture texture_sam;
+    sf::Texture texture_pipe_small_down;
+    sf::Texture texture_pipe_big_down;
+    sf::Texture texture_pipe_small_up;
+    sf::Texture texture_pipe_big_up;
+    sf::Sprite sprite_ground;
+    sf::Sprite sprite_sam;
+    sf::Sprite sprite_pipe_small_down;
+    sf::Sprite sprite_pipe_big_down;
+    sf::Sprite sprite_pipe_small_up;
+    sf::Sprite sprite_pipe_big_up;
+    sf::SoundBuffer beep_buffer;
+    sf::SoundBuffer jump_buffer;
+    sf::Sound beep_sound;
+    sf::Sound jump_sound;
 
     // Initialize window
-    RenderWindow window(VideoMode(400, 650), "Flappy Sam");
-    RectangleShape background(Vector2f(400, 650));
+    sf::RenderWindow window(sf::VideoMode(400, 650), "Flappy Sam");
+    sf::RectangleShape background(sf::Vector2f(400, 650));
     window.setFramerateLimit(60);
-    background.setFillColor(Color(97, 166, 255));
+    background.setFillColor(sf::Color(97, 166, 255));
 
     // Configure textures
     if (!texture_ground.loadFromFile("img/ground.png"))
-        cout << "Error loading ground.png" << endl;
+        std::cout << "Error loading ground.png" << std::endl;
     if (!texture_sam.loadFromFile("img/8bit_sam.png"))
-        cout << "Error loading 8bit_sam.png :(" << endl;
+        std::cout << "Error loading 8bit_sam.png :(" << std::endl;
     if (!texture_pipe_small_down.loadFromFile("img/small_pipe_down.png"))
-        cout << "Error loading small_pipe_down.png :(" << endl;
+        std::cout << "Error loading small_pipe_down.png :(" << std::endl;
     if (!texture_pipe_big_down.loadFromFile("img/big_pipe_down.png"))
-        cout << "Error loading big_pipe_down.png :(" << endl;
+        std::cout << "Error loading big_pipe_down.png :(" << std::endl;
     if (!texture_pipe_small_up.loadFromFile("img/small_pipe_up.png"))
-        cout << "Error loading small_pipe_up.png :(" << endl;
+        std::cout << "Error loading small_pipe_up.png :(" << std::endl;
     if (!texture_pipe_big_up.loadFromFile("img/big_pipe_up.png"))
-        cout << "Error loading big_pipe_up.png :(" << endl;
+        std::cout << "Error loading big_pipe_up.png :(" << std::endl;
 
     // Configure objects
     sprite_ground.setTexture(texture_ground);
@@ -68,9 +63,9 @@ int main()
 
     // Configure sounds
     if (!beep_buffer.loadFromFile("sounds/beep.flac"))
-        cout << "Error loading beep.flac :(" << endl;
+        std::cout << "Error loading beep.flac :(" << std::endl;
     if (!jump_buffer.loadFromFile("sounds/jump.flac"))
-        cout << "Error loading beep.flac :(" << endl;
+        std::cout << "Error loading beep.flac :(" << std::endl;
     
     beep_sound.setBuffer(beep_buffer);
     jump_sound.setBuffer(jump_buffer);
@@ -83,49 +78,49 @@ start:
     v = 0.0f;
     
     // Set objects in position
-    sprite_sam.setPosition(Vector2f(70, 100));
-    sprite_ground.setPosition(Vector2f(0, 610));
-    sprite_pipe_small_down.setPosition(Vector2f(450, 477));
-    sprite_pipe_big_down.setPosition(Vector2f(700, 423));
-    sprite_pipe_small_up.setPosition(Vector2f(700, 0));
-    sprite_pipe_big_up.setPosition(Vector2f(450, 0));
+    sprite_sam.setPosition(sf::Vector2f(70, 100));
+    sprite_ground.setPosition(sf::Vector2f(0, 610));
+    sprite_pipe_small_down.setPosition(sf::Vector2f(450, 477));
+    sprite_pipe_big_down.setPosition(sf::Vector2f(700, 423));
+    sprite_pipe_small_up.setPosition(sf::Vector2f(700, 0));
+    sprite_pipe_big_up.setPosition(sf::Vector2f(450, 0));
 
     // Main game loop
     while (window.isOpen()) {
-        Event event;
+        sf::Event event;
 
         if (!game_over) {
             // This makes the pipes move at a constant speed
-            sprite_pipe_small_down.move(Vector2f(-2, 0));
-            sprite_pipe_big_down.move(Vector2f(-2, 0));
-            sprite_pipe_small_up.move(Vector2f(-2, 0));
-            sprite_pipe_big_up.move(Vector2f(-2, 0));
+            sprite_pipe_small_down.move(sf::Vector2f(-2, 0));
+            sprite_pipe_big_down.move(sf::Vector2f(-2, 0));
+            sprite_pipe_small_up.move(sf::Vector2f(-2, 0));
+            sprite_pipe_big_up.move(sf::Vector2f(-2, 0));
 
             // Move the pipes back to start when they exit the view
             if (sprite_pipe_big_up.getPosition().x == -50) {
-               sprite_pipe_big_up.move(Vector2f(500, 0));
-               sprite_pipe_small_down.move(Vector2f(500, 0));
+               sprite_pipe_big_up.move(sf::Vector2f(500, 0));
+               sprite_pipe_small_down.move(sf::Vector2f(500, 0));
             } else if (sprite_pipe_small_up.getPosition().x == -50) {
-               sprite_pipe_small_up.move(Vector2f(500, 0));
-               sprite_pipe_big_down.move(Vector2f(500, 0));
+               sprite_pipe_small_up.move(sf::Vector2f(500, 0));
+               sprite_pipe_big_down.move(sf::Vector2f(500, 0));
             }
 
             // Respond to events
             while (window.pollEvent(event)) {
-               if (event.type == Event::Closed) return 0;
+               if (event.type == sf::Event::Closed) return 0;
             }
 
             // Movement loop
-            if (Keyboard::isKeyPressed(Keyboard::Space) && !hold_space) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !hold_space) {
                 v = -14.0f;  // Y-coordinates are reversed, up is lower
                 hold_space = true;  // to make sure Sam won't stand still if space key is held
                 jump_sound.play();
-                sprite_sam.move(Vector2f(0.0f, v));
+                sprite_sam.move(sf::Vector2f(0.0f, v));
             } else {
                 v = v + 1.0f;
                 if (v > 10.0f) v = 10.0f;
-                if (!Keyboard::isKeyPressed(Keyboard::Space)) hold_space = false;
-                sprite_sam.move(Vector2f(0.0f, v));
+                if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) hold_space = false;
+                sprite_sam.move(sf::Vector2f(0.0f, v));
             }
 
             // Collision/point checks
@@ -152,13 +147,13 @@ start:
             window.display();
         } else {
             // Configure font
-            Font font;
-            Text text_GameOver;
-            Text text_PlayAgain;
-            Text text_score;
+            sf::Font font;
+            sf::Text text_GameOver;
+            sf::Text text_PlayAgain;
+            sf::Text text_score;
 
             if (!font.loadFromFile("fonts/Fipps-Regular.otf"))
-                cout << "Error loading Fipps-Regular.otf :(" << endl;
+                std::cout << "Error loading Fipps-Regular.otf :(" << std::endl;
 
             // Configure text strings
             text_GameOver.setFont(font);
@@ -167,15 +162,15 @@ start:
 
             text_GameOver.setString("GAME OVER");
             text_PlayAgain.setString("Play again? (Y/N)");
-            text_score.setString("You scored " + to_string(points) + " point" + (points == 1 ? "." : "s."));
+            text_score.setString("You scored " + std::to_string(points) + " point" + (points == 1 ? "." : "s."));
 
             text_GameOver.setCharacterSize(42);
             text_PlayAgain.setCharacterSize(16);
             text_score.setCharacterSize(16);
 
-            text_GameOver.setFillColor(Color::Red);
-            text_PlayAgain.setFillColor(Color::Yellow);
-            text_score.setFillColor(Color::Yellow);
+            text_GameOver.setFillColor(sf::Color::Red);
+            text_PlayAgain.setFillColor(sf::Color::Yellow);
+            text_score.setFillColor(sf::Color::Yellow);
 
             text_GameOver.setPosition(20, 250);
             text_PlayAgain.setPosition(60, 350);
@@ -191,10 +186,10 @@ start:
             window.display();
 
             // Handle user action
-            if (Keyboard::isKeyPressed(Keyboard::Y)) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y)) {
                 game_over = false;
                 goto start;
-            } else if (Keyboard::isKeyPressed(Keyboard::N)) {
+            } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::N)) {
                 break;
             }
         }
